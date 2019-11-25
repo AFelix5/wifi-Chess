@@ -273,7 +273,7 @@ boolean choose(int[][] test){
  
 void mousePressed(){
   if(mouseX<tile&&mouseY<tile){
-    print("hello"); //<>//
+    print("hello");
   }
   if(mouse_image==0&&tile<mouseX&&mouseX<9*tile&&tile<mouseY&&mouseY<9*tile){
     int x = mouseX/tile-1;
