@@ -215,7 +215,7 @@ void run_command(){
       }
     }
     else if(input.indexOf("load")==1){
-      if(input.substring(5).matches(" [0-3]")){
+      if(input.substring(5).matches(" [0-4]")){
         board = board_init[Integer.parseInt(input.substring(6))];
         mouse_x = -1;
         mouse_y = -1;

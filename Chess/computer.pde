@@ -10,6 +10,10 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
   int[][] befor = clone(feld);
   if(feld[0][8]%4/2==1){
     int[][] rotate = clone(feld);
+    x1 = 7-x1;
+    x2 = 7-x2;
+    y1 = 7-y1;
+    y2 = 7-y2;
     for(int i=0; i<8; i++){
       for (int j=0; j<8; j++){
         feld[i][j] = rotate[7-i][7-j];
@@ -23,9 +27,9 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
       if(x1==x2||y1==y2){
         int x = x1;
         int y = y1;
-        while(x<x2||y<y2){
-          x += constrain(x2-x1,-1,1);
-          y += constrain(y2-y1,-1,1);
+        while(!((x>x2&&x2>x1)||(y>y2&&y2>y1)||(x<x2&&x2<x1)||(y<y2&&y2<y1))){
+          x = x+min(max(x2-x1,-1),1);
+          y = y+min(max(y2-y1,-1),1);
           if(x==x2&&y==y2){
             feld[x2][y2] = feld[x1][y1];
             feld[x1][y1] = 0;
@@ -38,9 +42,9 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
       if(abs(x1-x2)==abs(y1-y2)){
         int x = x1;
         int y = y1;
-        while(x<x2||y<y2){
-          x += constrain(x2-x1,-1,1);
-          y += constrain(y2-y1,-1,1);
+        while(!((x>x2&&x2>x1)||(y>y2&&y2>y1)||(x<x2&&x2<x1)||(y<y2&&y2<y1))){
+          x = x+min(max(x2-x1,-1),1);
+          y = y+min(max(y2-y1,-1),1);
           if(x==x2&&y==y2){
             feld[x2][y2] = feld[x1][y1];
             feld[x1][y1] = 0;
@@ -56,12 +60,12 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
       }
     break;
     case 4:
-      if(x1==x2||y1==y2||abs(x1-x2)==abs(y1-y2)){
+      if(x1==x2||y1==y2||abs(x2-x1)==abs(y2-y1)){
         int x = x1;
         int y = y1;
-        while(x<x2||y<y2){
-          x += constrain(x2-x1,-1,1);
-          y += constrain(y2-y1,-1,1);
+        while(!((x>x2&&x2>x1)||(y>y2&&y2>y1)||(x<x2&&x2<x1)||(y<y2&&y2<y1))){
+          x = x+min(max(x2-x1,-1),1);
+          y = y+min(max(y2-y1,-1),1);
           if(x==x2&&y==y2){
             feld[x2][y2] = feld[x1][y1];
             feld[x1][y1] = 0;
@@ -81,6 +85,10 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
   }
   if(feld[0][8]%4/2==1){
     int[][] rotate = clone(feld);
+    x1 = 7-x1;
+    x2 = 7-x2;
+    y1 = 7-y1;
+    y2 = 7-y2;
     for(int i=0; i<8; i++){
       for (int j=0; j<8; j++){
         feld[i][j] = rotate[7-i][7-j];
@@ -92,7 +100,7 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
     int y = -1;
     for(int i=0; i<8; i++){
       for(int j=0; j<8; j++){
-        if(feld[i][j]/2==12-feld[0][8]%2){
+        if(feld[i][j]/2==11+feld[0][8]%2){
           x = i;
           y = j;
         }
@@ -107,13 +115,14 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
         for(int k=0; k<8; k++){
           for(int l=0; l<8; l++){
             int[][] test = clone(feld);
-            if(move(i,j,k,l,test,false)&&test[x][y]/2!=12-feld[0][8]%2)feld = befor;
+            test[0][8] ^= 1;
+            if(move(i,j,k,l,test,false)&&test[x][y]/2!=11+feld[0][8]%2)feld = befor;
           }
         }
       }
     }
   }
-  if(!feld.equals(befor)){
+  if(!equal(feld,befor)){
     feld[0][8] ^= 1;
     return true;
   }
@@ -121,8 +130,21 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
 }
 
 int minmax(int d,int[][] feld){
+  print(d);
   if(d<1){
     int score = 0;
+    //TO-DO
+    score = 50;
+    for(int i=0; i<8; i++){
+      for(int j=0; j<8; j++){
+        if((feld[i][j]-2)%4/2==0){
+          score += ((feld[i][j]-2)/4);
+        }
+        else{
+          score -= ((feld[i][j]-2)/4);
+        }
+      }
+    }
     //TO-DO
     return score;
   }

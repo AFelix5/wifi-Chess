@@ -9,6 +9,14 @@ int[][][] board_init = {{{8 ,4 ,0 ,0 ,0 ,0 ,2 ,6 ,0 },
                          {12,4 ,0 ,0 ,0 ,0 ,2 ,10},
                          {16,4 ,0 ,0 ,0 ,0 ,2 ,14},
                          {8 ,4 ,0 ,0 ,0 ,0 ,2 ,6 }},
+                        {{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 },
+                         {0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 },
+                         {0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 },
+                         {0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 },
+                         {0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 },
+                         {0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 },
+                         {0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 },
+                         {0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 }},
                         {{0 ,30,0 ,0 ,0 ,28,0 ,28,0 },
                          {30,0 ,30,0 ,0 ,0 ,28,0 },
                          {0 ,30,0 ,0 ,0 ,28,0 ,28},
@@ -93,20 +101,13 @@ void setup(){
   image[37] = loadImage("Pices/Chess_ydt60.png");
   board = clone(board_init[0]);
   history.add(clone(board));
-  thread("update");
 }
 
 void draw(){
-  
-}
-
-void update(){
-  while(true){
-    if(width!=width_old||height!=height_old){
-      width_old = width;
-      height_old = height;
-      draw_board();
-    }
+  if(width!=width_old||height!=height_old){
+    width_old = width;
+    height_old = height;
+    draw_board();
   }
 }
 
@@ -270,10 +271,19 @@ boolean choose(int[][] test){
   }
   return false;
 }
+
+boolean equal(int[][] test1,int[][] test2){
+  for(int i=0; i<8; i++){
+    for (int j=0; j<8; j++){
+      if(test1[i][j]!=test2[i][j]) return false;
+    }
+  }
+  return true;
+}
  
 void mousePressed(){
   if(mouseX<tile&&mouseY<tile){
-    print("hello");
+    print("hello"); //<>//
   }
   if(mouse_image==0&&tile<mouseX&&mouseX<9*tile&&tile<mouseY&&mouseY<9*tile){
     int x = mouseX/tile-1;
