@@ -58,7 +58,8 @@ int tile;
 
 void setup(){
   //fullScreen();
-  size(displayWidth, displayHeight);
+  //size(displayWidth, displayHeight);
+  size(1000,600);
   surface.setResizable(true);
   tile = min(width/10,height/10);
   image[0] = loadImage("Pices/Chess_00t60.png");
