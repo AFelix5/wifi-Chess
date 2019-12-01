@@ -22,10 +22,15 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
   }
   switch((feld[x1][y1]-2)/4){
     case 0:
-      if(abs(y2-y1)==2&&(y1==1||y1==6)&&x1==x2){
-        feld[0][8] |= int(64*pow(2,x1)*pow(256,float(floor((feld[x1][y1]-2)%4/2))));
-        feld[x2][y2] = feld[x1][y1];
-        feld[x1][y1] = 0;
+      if(pow(x1-x2,2)+pow(y1-y2,2)<3&&min(max(y2-y1,-1),1)==feld[0][8]%2*2-1){
+        if(abs(y2-y1)==abs(x2-x1)&&feld[x2][y2]>1&&(feld[x1][y1]-2)%4/2==1-feld[0][8]%2){
+          feld[x2][y1] = feld[x2][y2];
+          feld[x1][y1] = 0;
+        }
+        //  6/5-(1/5)*y1&&x1==x2&&feld[x1][y){
+        //feld[0][8] |= int(64*pow(2,x1)*pow(256,y2-3));
+        //feld[x2][y2] = feld[x1][y1];
+        //feld[x1][y1] = 0;
       }
     break;
     case 1:
@@ -36,7 +41,6 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
           x = x+min(max(x2-x1,-1),1);
           y = y+min(max(y2-y1,-1),1);
           if(x==x2&&y==y2){
-            feld[0][8] |= int(4*pow(2,float(round(x1/7)))*pow(4,float(floor((feld[x1][y1]-2)%4/2))));
             feld[x2][y2] = feld[x1][y1];
             feld[x1][y1] = 0;
           }
@@ -94,8 +98,6 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
     case 8:
     break;
   }
-  if((y2==2||y2==5)&&feld[0][8]%(256*pow(2,x2)*pow(256,(y2-2)/3))/(64*pow(2,x2)*pow(256,(y2-2)/3))==1&&(feld[x2][7/3+(1/3)*y2]-2)/4==0)feld[x2][7/3+(1/3)*y2] = 0;
-  feld[0][8] &= int(4194303-16320*pow(256,1-feld[0][8]%2));
   if(feld[0][8]%4/2==1){
     int[][] rotate = clone(feld);
     x1 = 7-x1;
@@ -108,7 +110,7 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
       }
     }
   }
-  if(king){
+  if(king&&!equal(feld,befor)){
     int x = -1;
     int y = -1;
     for(int i=0; i<8; i++){
