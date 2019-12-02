@@ -35,7 +35,8 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
           feld[x2][y2] = feld[x1][y1];
           feld[x1][y1] = 0;
         }
-        if(abs(y2-y1)==2&&x1==x2&&feld[x1+x2/2][y1+y2/2]<2&&feld[x2][y2]<2){
+        if(abs(y2-y1)==2&&x1==x2&&feld[x1+x2/2][y1+y2/2]<2&&feld[x2][y2]<2&&(y1==1||y1 ==6)){
+          feld[0][8] |= int(pow(2,6+x1+(y1-1)*(8/5)));
           feld[x2][y2] = feld[x1][y1];
           feld[x1][y1] = 0;
         }
@@ -106,7 +107,7 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
     case 8:
     break;
   }
-  feld[0][8] &= int(4194303-16320*pow(256,1-feld[0][8]%2));
+  feld[0][8] &= int(4194303-16320*pow(256,feld[0][8]%2));
   if(feld[0][8]%4/2==1){
     int[][] rotate = clone(feld);
     x1 = 7-x1;
