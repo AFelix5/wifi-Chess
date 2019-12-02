@@ -35,10 +35,10 @@ boolean move(int x1,int y1,int x2,int y2,int[][] feld,boolean king){
           feld[x2][y2] = feld[x1][y1];
           feld[x1][y1] = 0;
         }
-        //  6/5-(1/5)*y1&&x1==x2&&feld[x1][y){
-        //feld[0][8] |= int(64*pow(2,x1)*pow(256,y2-3));
-        //feld[x2][y2] = feld[x1][y1];
-        //feld[x1][y1] = 0;
+        if(abs(y2-y1)==2&&x1==x2&&feld[x1+x2/2][y1+y2/2]<2&&feld[x2][y2]<2){
+          feld[x2][y2] = feld[x1][y1];
+          feld[x1][y1] = 0;
+        }
       }
     break;
     case 1:

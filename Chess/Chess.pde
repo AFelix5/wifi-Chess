@@ -289,7 +289,7 @@ void mousePressed(){
   if(mouse_image==0&&tile<mouseX&&mouseX<9*tile&&tile<mouseY&&mouseY<9*tile){
     int x = mouseX/tile-1;
     int y = mouseY/tile-1;
-    if(board[x][y]-2==0){}
+    if((board[x][y]-2)/4==6){}
     if(mouse_x!=-1&&mouse_y!=-1&&move(mouse_x,mouse_y,x,y,board,config[3])){
       for(int i=0; i<8; i++){
         for (int j=0; j<8; j++){
