@@ -41,7 +41,7 @@ int[][][] board_init = {{{8 ,4 ,0 ,0 ,0 ,0 ,2 ,6 ,0 },
                          {34,0 ,0 ,0 ,0 ,0 ,0 ,0 },
                          {35,0 ,0 ,0 ,0 ,0 ,0 ,0 },
                          {35,0 ,0 ,0 ,0 ,0 ,0 ,0 }}};
-boolean[] config = {false,false,true,true,false,false,false,false,true};
+boolean[] config = {false,false,false,true,false,false,true,true,false};
 ArrayList<int[][]> history = new ArrayList<int[][]>();
 ArrayList<String> chat = new ArrayList<String>();
 String input = "";
