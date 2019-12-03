@@ -290,9 +290,55 @@ void mousePressed(){
     int x = mouseX/tile-1;
     int y = mouseY/tile-1;
     if((board[x][y]-2)/4==6){
-      
+      if(mouseX<tile*x+tile*3/2){
+        if(mouseY<tile*y+tile*3/2){
+          board[x][y] -= 8;
+        }
+        else{
+          board[x][y] -= 16;
+        }
+      }
+      else{
+        if(mouseY<tile*y+tile*3/2){
+          board[x][y] -= 20;
+        }
+        else{
+          board[x][y] -= 12;
+        }
+      }
+      if(!choose(board)){
+        if(config[7]){
+          mouse_x = 7-mouse_x;
+          mouse_y = 7-mouse_y;
+          board[0][8] ^= 2;
+          int[][] rotate = clone(board);
+          for(int i=0; i<8; i++){
+            for (int j=0; j<8; j++){
+              board[i][j] = rotate[7-i][7-j];
+            }
+          }
+          index++;
+          if(index<history.size()){
+            for(int i=history.size(); i>index; i--){
+              history.remove(i-1);
+            }
+          }
+          history.add(clone(board));
+        }
+        if(config[8]){
+          minmax(depth,board);
+          index++;
+          if(index<history.size()){
+            for(int i=history.size(); i>index; i--){
+              history.remove(i-1);
+            }
+          }
+          history.add(clone(board));
+        }
+      }
+      draw_board();
     }
-    if(mouse_x!=-1&&mouse_y!=-1&&move(mouse_x,mouse_y,x,y,board,config[3])){
+    else if(mouse_x!=-1&&mouse_y!=-1&&move(mouse_x,mouse_y,x,y,board,config[3])){
       for(int i=0; i<8; i++){
         for (int j=0; j<8; j++){
           if(board[i][j]%2==1)board[i][j]--;
